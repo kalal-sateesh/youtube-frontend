@@ -4,6 +4,7 @@ import profileIcon from "../assets/Images/profile-icon.png";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { getuserData } from "./HeaderSlice";
+import { API_BASE_URL } from "../contants";
 
 const ChannelCreate = () => {
   const [channelName, setChannelName] = useState("");
@@ -60,16 +61,13 @@ const ChannelCreate = () => {
     };
 
     try {
-      const res = await axios.post(
-        `http://localhost:5000/api/${id}/channel`,
-        reqObj
-      );
+      const res = await axios.post(`${API_BASE_URL}/api/${id}/channel`, reqObj);
 
       if (res.data) {
         setIsSuccess(true);
         setSuccessMsg("Channel Created successfully");
         const updatedUserData = await axios.get(
-          `http://localhost:5000/api/user/${userId}`
+          `${API_BASE_URL}/api/user/${userId}`
         );
         dispatch(getuserData(updatedUserData.data));
         localStorage.setItem("userData", JSON.stringify(updatedUserData.data));

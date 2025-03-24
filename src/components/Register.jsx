@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { API_BASE_URL } from "../contants";
 
 const Register = () => {
   const [name, setName] = useState("");
@@ -58,7 +59,7 @@ const Register = () => {
       avatar: profileUrl,
     };
     axios
-      .post("http://localhost:5000/api/register", reqObj)
+      .post(`${API_BASE_URL}/api/register`, reqObj)
       .then((res) => {
         if (res.status === 201) {
           setIsError(false);

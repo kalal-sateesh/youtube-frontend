@@ -4,6 +4,7 @@ import VideoplayerRight from "./VideoplayerRight";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { API_BASE_URL } from "../contants";
 
 const Videoplayer = () => {
   const [videoData, setVideoData] = useState([]);
@@ -22,10 +23,7 @@ const Videoplayer = () => {
     };
 
     try {
-      const res = await axios.post(
-        `http://localhost:5000/api/${pid}/comment`,
-        obj
-      );
+      const res = await axios.post(`${API_BASE_URL}/api/${pid}/comment`, obj);
       const token = localStorage.getItem("token");
       if (!token) return;
       const reqObj = {
@@ -36,7 +34,7 @@ const Videoplayer = () => {
 
       if (res.data) {
         const updatedCommentData = await axios.get(
-          `http://localhost:5000/api/video/${pid}`,
+          `${API_BASE_URL}/api/video/${pid}`,
           reqObj
         );
         const updatedDate = updatedCommentData.data.uploadDate.split("T")[0];
@@ -65,7 +63,7 @@ const Videoplayer = () => {
     };
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/${pid}/comment/${editCommentId}`,
+        `${API_BASE_URL}/api/${pid}/comment/${editCommentId}`,
         obj
       );
       const token = localStorage.getItem("token");
@@ -78,7 +76,7 @@ const Videoplayer = () => {
 
       if (res.data) {
         const updatedCommentData = await axios.get(
-          `http://localhost:5000/api/video/${pid}`,
+          `${API_BASE_URL}/api/video/${pid}`,
           reqObj
         );
         const updatedDate = updatedCommentData.data.uploadDate.split("T")[0];
@@ -104,8 +102,9 @@ const Videoplayer = () => {
   const handleDeleteComment = async (commentId) => {
     try {
       const res = await axios.delete(
-        `http://localhost:5000/api/${pid}/comment/${commentId}`
+        `${API_BASE_URL}/api/${pid}/comment/${commentId}`
       );
+      console.log("Delete");
       const token = localStorage.getItem("token");
       if (!token) return;
       const reqObj = {
@@ -116,7 +115,7 @@ const Videoplayer = () => {
 
       if (res.data) {
         const updatedCommentData = await axios.get(
-          `http://localhost:5000/api/video/${pid}`,
+          `${API_BASE_URL}/api/video/${pid}`,
           reqObj
         );
         const updatedDate = updatedCommentData.data.uploadDate.split("T")[0];
@@ -144,7 +143,7 @@ const Videoplayer = () => {
       },
     };
     axios
-      .get(`http://localhost:5000/api/video/${pid}`, reqObj)
+      .get(`${API_BASE_URL}/api/video/${pid}`, reqObj)
       .then((res) => {
         const updatedDate = res.data.uploadDate.split("T")[0];
         setVideoData({ ...res.data, uploadDate: updatedDate });

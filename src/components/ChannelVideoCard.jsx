@@ -5,6 +5,7 @@ import ReactPlayer from "react-player";
 import axios from "axios";
 import { getuserData } from "./HeaderSlice";
 import { useEffect, useState } from "react";
+import { API_BASE_URL } from "../contants";
 
 const ChannelVideoCard = ({
   thumbnailUrl,
@@ -35,7 +36,7 @@ const ChannelVideoCard = ({
     e.preventDefault();
     try {
       const res = await axios.delete(
-        `http://localhost:5000/api/channel/${id}/video/${videoId}`
+        `${API_BASE_URL}/api/channel/${id}/video/${videoId}`
       );
       if (res.data) {
         setTimeout(() => {
@@ -43,7 +44,7 @@ const ChannelVideoCard = ({
         }, 1000);
         setClickedIndex(null);
         const updatedUserData = await axios.get(
-          `http://localhost:5000/api/user/${userId}`
+          `${API_BASE_URL}/api/user/${userId}`
         );
         dispatch(getuserData(updatedUserData.data));
         localStorage.setItem("userData", JSON.stringify(updatedUserData.data));

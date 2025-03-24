@@ -5,6 +5,7 @@ import axios from "axios";
 import { getuserData, removeuserData, setLoggedInStatus } from "./HeaderSlice";
 import { useLocation, useNavigate } from "react-router-dom";
 import FilterButtons from "./FilterButtons";
+import { API_BASE_URL } from "../contants";
 
 const Home = () => {
   const [videos, setVideos] = useState([]);
@@ -51,7 +52,7 @@ const Home = () => {
         try {
           setIsLoading(true);
           const response = await axios.post(
-            "http://localhost:5000/api/verifyToken",
+            `${API_BASE_URL}/api/verifyToken`,
             {},
             { headers: { Authorization: `JWT ${token}` } }
           );
@@ -95,7 +96,7 @@ const Home = () => {
       },
     };
     axios
-      .get("http://localhost:5000/api/videos", reqObj)
+      .get(`${API_BASE_URL}/api/videos`, reqObj)
       .then((res) => {
         setVideos(res.data);
       })

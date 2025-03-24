@@ -5,6 +5,7 @@ import Comment from "./Comment";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import { useSelector } from "react-redux";
+import { API_BASE_URL } from "../contants";
 
 const VideoplayerLeft = ({
   title,
@@ -43,7 +44,7 @@ const VideoplayerLeft = ({
       },
     };
     axios
-      .get(`http://localhost:5000/api/users`, reqObj)
+      .get(`${API_BASE_URL}/api/users`, reqObj)
       .then((res) => {
         setUsers(res.data);
       })

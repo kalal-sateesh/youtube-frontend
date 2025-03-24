@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import VideoplayerRightCard from "./VideoplayerRightCard";
 import axios from "axios";
+import { API_BASE_URL } from "../contants";
 
 const VideoplayerRight = () => {
   const [videos, setVideos] = useState([]);
@@ -14,7 +15,7 @@ const VideoplayerRight = () => {
       },
     };
     axios
-      .get(`http://localhost:5000/api/videos`, reqObj)
+      .get(`${API_BASE_URL}/api/videos`, reqObj)
       .then((res) => {
         setVideos(res.data);
       })

@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getuserData } from "./HeaderSlice";
 import axios from "axios";
+import { API_BASE_URL } from "../contants";
 
 const EditVideo = () => {
   const [errMsg, setErrMsg] = useState("");
@@ -40,7 +41,7 @@ const EditVideo = () => {
 
     try {
       const res = await axios.put(
-        `http://localhost:5000/api/channel/${id}/video/${videoId}`,
+        `${API_BASE_URL}/api/channel/${id}/video/${videoId}`,
         reqObj
       );
 
@@ -48,7 +49,7 @@ const EditVideo = () => {
         setIsSuccess(true);
         setSuccessMsg("Video Updated successfully");
         const updatedUserData = await axios.get(
-          `http://localhost:5000/api/user/${userId}`
+          `${API_BASE_URL}/api/user/${userId}`
         );
         dispatch(getuserData(updatedUserData.data));
         localStorage.setItem("userData", JSON.stringify(updatedUserData.data));

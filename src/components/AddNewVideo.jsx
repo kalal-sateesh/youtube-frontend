@@ -3,6 +3,7 @@ import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate, useParams } from "react-router-dom";
 import { getuserData } from "./HeaderSlice";
+import { API_BASE_URL } from "../contants";
 
 const AddNewVideo = () => {
   const [errMsg, setErrMsg] = useState("");
@@ -51,7 +52,7 @@ const AddNewVideo = () => {
 
     try {
       const res = await axios.post(
-        `http://localhost:5000/api/${id}/addVideo`,
+        `${API_BASE_URL}/api/${id}/addVideo`,
         reqObj
       );
 
@@ -59,7 +60,7 @@ const AddNewVideo = () => {
         setIsSuccess(true);
         setSuccessMsg("Video added successfully");
         const updatedUserData = await axios.get(
-          `http://localhost:5000/api/user/${userId}`
+          `${API_BASE_URL}/api/user/${userId}`
         );
         dispatch(getuserData(updatedUserData.data));
         localStorage.setItem("userData", JSON.stringify(updatedUserData.data));

@@ -8,6 +8,7 @@ import {
   setErrorStatus,
   setLoggedInStatus,
 } from "./HeaderSlice";
+import { API_BASE_URL } from "../contants";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -35,7 +36,7 @@ const Login = () => {
       password: password,
     };
     axios
-      .post("http://localhost:5000/api/login", reqObj)
+      .post(`${API_BASE_URL}/api/login`, reqObj)
       .then((res) => {
         if (res.data.accessToken) {
           localStorage.setItem("token", res.data.accessToken);
